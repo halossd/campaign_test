@@ -9,28 +9,25 @@ def browser():
     with sync_playwright() as p:
         browser = p.chromium.launch(
             headless=False,
+            args=["--window-position=0,0", "--window-size=1920,1080"]
         )
         yield browser
         browser.close()
 
 @pytest.fixture
 def page(browser):
-    context = browser.new_context(viewport=None)
+    context = browser.new_context(
+        viewport={"width": 1920, "height": 1080},
+        screen={"width": 1920, "height": 1080}
+    )
     page = context.new_page()
 
     original_goto = page.goto
 
     def wrapped_goto(url, **kwargs):
         response = original_goto(url, **kwargs)
-
-        dismiss_cookie_banner(page)
-
-        try:
-            page.wait_for_selector("#onetrust-banner-sdk", state="hidden", timeout=5000)
-            print("✅ Cookie banner container hidden.")
-        except Exception as e:
-            print(f"⚠️ Cookie banner did not disappear: {e}")
-
+        page.wait_for_load_state("networkidle") 
+        dismiss_cookie_banner(page)              
         return response
 
     page.goto = wrapped_goto
