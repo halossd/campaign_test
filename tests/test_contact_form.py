@@ -36,8 +36,8 @@ def test_contact_form(page, user):
 
     page.screenshot(path="results/screenshots/confirm.png", full_page=True)
 
-    # page.click("#compleBtn")
+    page.click("#compleBtn")
 
-    # page.wait_for_load_state("networkidle")
+    page.wait_for_load_state("networkidle")
 
-    # page.screenshot(path="results/screenshots/complete.png", full_page=True)
+    page.screenshot(path="results/screenshots/complete.png", full_page=True)

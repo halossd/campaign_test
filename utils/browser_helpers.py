@@ -23,7 +23,6 @@ def dismiss_cookie_banner(page):
         # 等待 cookie 条消失
         page.wait_for_selector(cookie_selector, state="hidden", timeout=5000)
 
-        page.screenshot(path="results/screenshots/before_cookie_dismiss.png")
         log("✅ Cookie 条已关闭")
 
     except Exception as e:
