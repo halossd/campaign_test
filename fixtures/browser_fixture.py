@@ -1,6 +1,7 @@
 # tests/fixtures/browser_fixture.py
 
 import pytest
+import logging
 from playwright.sync_api import sync_playwright
 from utils.browser_helpers import dismiss_cookie_banner
 

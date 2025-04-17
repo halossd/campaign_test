@@ -1,4 +1,4 @@
-from utils.logger import log
+import logging
 
 def dismiss_cookie_banner(page):
     cookie_selector = "#onetrust-banner-sdk"
@@ -6,7 +6,7 @@ def dismiss_cookie_banner(page):
 
     try:
         # 等待 cookie 框出现
-        log("🍪 等待 Cookie 条出现")
+        logging.info("🍪 等待 Cookie 条出现")
         page.wait_for_selector(cookie_selector, state="visible", timeout=8000)
 
         # 等 cookie 完全展开（动画完成）
@@ -17,13 +17,13 @@ def dismiss_cookie_banner(page):
             page.wait_for_timeout(300)
 
         # 确保关闭按钮可以点击
-        log("🚫 准备点击 Cookie 关闭按钮")
+        logging.info("🚫 准备点击 Cookie 关闭按钮")
         page.locator(close_btn_selector).click()
 
         # 等待 cookie 条消失
         page.wait_for_selector(cookie_selector, state="hidden", timeout=5000)
 
-        log("✅ Cookie 条已关闭")
+        logging.info("✅ Cookie 条已关闭")
 
     except Exception as e:
-        log(f"⚠️ Cookie 条未显示或关闭失败: {e}")
+        logging.info(f"⚠️ Cookie 条未显示或关闭失败: {e}")

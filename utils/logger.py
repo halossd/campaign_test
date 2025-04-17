@@ -1,14 +1,27 @@
 # utils/logger.py
 
-import datetime
 import os
+import logging
 
-LOG_DIR = "results/logs"
+def init_logger(test_name="global"):
+    log_dir = "results/logs"
+    os.makedirs(log_dir, exist_ok=True)
+    log_path = os.path.join(log_dir, f"{test_name}.log")
 
-def log(message: str, test_name: str = "global"):
-    os.makedirs(LOG_DIR, exist_ok=True)
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    log_file = os.path.join(LOG_DIR, f"{test_name}.log")
-    with open(log_file, "a", encoding="utf-8") as f:
-        f.write(f"[{timestamp}] {message}\n")
-    print(f"[{timestamp}] {message}")
+    # 获取 root logger
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+
+    # 清空之前的 handler，防止重复添加
+    if logger.hasHandlers():
+        logger.handlers.clear()
+
+    file_handler = logging.FileHandler(log_path, mode='w', encoding='utf-8')
+    stream_handler = logging.StreamHandler()
+
+    formatter = logging.Formatter('[%(asctime)s] %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+    file_handler.setFormatter(formatter)
+    stream_handler.setFormatter(formatter)
+
+    logger.addHandler(file_handler)
+    logger.addHandler(stream_handler)
