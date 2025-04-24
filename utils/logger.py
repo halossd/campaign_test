@@ -8,11 +8,11 @@ def init_logger(test_name="global"):
     os.makedirs(log_dir, exist_ok=True)
     log_path = os.path.join(log_dir, f"{test_name}.log")
 
-    # 获取 root logger
+    # root logger
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
 
-    # 清空之前的 handler，防止重复添加
+    # clear handler
     if logger.hasHandlers():
         logger.handlers.clear()
 

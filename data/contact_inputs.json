@@ -1,10 +1,10 @@
 [
-    {
-      "sei": "山田",
-      "mei": "太郎",
-      "seiKana": "ヤマダ",
-      "meiKana": "タロウ",
-      "email": "test@example.com",
-      "goiken": "テストのお問い合わせ内容です。"
-    }
-  ]
+  {
+    "sei": "山田",
+    "mei": "太郎",
+    "seiKana": "ヤマダ",
+    "meiKana": "タロウ",
+    "email": "test@example.com",
+    "goiken": "テストのお問い合わせ内容です。"
+  }
+]
